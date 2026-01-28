@@ -579,7 +579,7 @@ See `references/use_cases.md` for complete code examples for each use case.
 - **Use mini-index for simple queries** - Only use BigQuery when you need comprehensive metadata or complex JOINs
 - **Organize downloads with dirTemplate** - Use meaningful directory structures like `%collection_id/%PatientID/%Modality`
 - **Cache query results** - Save DataFrames to CSV files to avoid re-querying and ensure reproducibility
-- **Estimate size first** - Check collection size before downloading - some collection sizes are in terabytes!
+- **Estimate size first** - Check collection size before downloading - some collection sizes are in terabytes! See `references/memory_management.md` for batch download strategies
 - **Save manifests** - Always save query results with Series UIDs for reproducibility and data provenance
 - **Read documentation** - IDC data structure and metadata fields are documented at https://learn.canceridc.dev/
 - **Use IDC forum** - Search for questons/answers and ask your questions to the IDC maintainers and users at https://discourse.canceridc.dev/
