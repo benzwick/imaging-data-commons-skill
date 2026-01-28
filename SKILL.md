@@ -715,6 +715,7 @@ columns = [(c['name'], c['type'], c.get('description', '')) for c in schema['col
 | Script | Description |
 |--------|-------------|
 | `scripts/batch_download.py` | Batch download with progress tracking, resume capability, disk space checking |
+| `scripts/validate_download.py` | DICOM validation, completeness checking, geometry verification |
 
 Usage:
 ```bash
@@ -729,6 +730,12 @@ python scripts/batch_download.py --collection rider_pilot --output ./data
 
 # Dry run to see what would be downloaded
 python scripts/batch_download.py --collection rider_pilot --output ./data --dry-run
+
+# Validate downloaded data
+python scripts/validate_download.py --dir ./data
+
+# Validate against manifest with geometry checking
+python scripts/validate_download.py --dir ./data --manifest manifest.csv --check-geometry --output report.json
 ```
 
 ### External Links
