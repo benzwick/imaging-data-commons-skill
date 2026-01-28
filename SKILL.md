@@ -686,9 +686,17 @@ columns = [(c['name'], c['type'], c.get('description', '')) for c in schema['col
 
 ### Reference Documentation
 
-- **bigquery_guide.md** - Advanced BigQuery usage guide for complex metadata queries
-- **dicomweb_guide.md** - DICOMweb endpoint URLs, code examples, and Google Healthcare API implementation details
-- **[indices_reference](https://idc-index.readthedocs.io/en/latest/indices_reference.html)** - External documentation for index tables (may be ahead of the installed version)
+| File | Description |
+|------|-------------|
+| `references/index_tables.md` | Complete index table documentation, join patterns, column schemas |
+| `references/sql_patterns.md` | Common SQL query patterns and examples |
+| `references/use_cases.md` | Detailed code examples for common workflows |
+| `references/analysis_integration.md` | Integration with pydicom, SimpleITK, MONAI, etc. |
+| `references/memory_management.md` | Large dataset handling, batch downloads, disk management |
+| `references/bigquery_guide.md` | Advanced BigQuery usage for complex metadata queries |
+| `references/dicomweb_guide.md` | DICOMweb endpoint URLs and API integration |
+
+**External:** [indices_reference](https://idc-index.readthedocs.io/en/latest/indices_reference.html) - Official idc-index documentation
 
 ### External Links
 
