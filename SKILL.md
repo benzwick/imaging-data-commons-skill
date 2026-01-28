@@ -815,140 +815,38 @@ cc_by_data.to_csv('commercial_dataset_manifest_CC-BY_ONLY.csv', index=False)
 
 ## Common SQL Query Patterns
 
-Quick reference for common queries. For detailed examples with context, see the Core Capabilities section above.
+Quick reference for common query patterns:
 
-### Discover available filter values
 ```python
-# What modalities exist?
+from idc_index import IDCClient
+client = IDCClient()
+
+# Discover available values
 client.sql_query("SELECT DISTINCT Modality FROM index")
 
-# What body parts for a specific modality?
+# Find segmentations
+client.sql_query("SELECT * FROM index WHERE Modality = 'SEG' LIMIT 10")
+
+# Estimate download size
 client.sql_query("""
-    SELECT DISTINCT BodyPartExamined, COUNT(*) as n
-    FROM index WHERE Modality = 'CT' AND BodyPartExamined IS NOT NULL
-    GROUP BY BodyPartExamined ORDER BY n DESC
+    SELECT SUM(series_size_MB) as total_mb, COUNT(*) as series
+    FROM index WHERE collection_id = 'nlst' AND Modality = 'CT'
 """)
 
-# What manufacturers for MR?
+# Filter by license (commercial use)
 client.sql_query("""
-    SELECT DISTINCT Manufacturer, COUNT(*) as n
-    FROM index WHERE Modality = 'MR'
-    GROUP BY Manufacturer ORDER BY n DESC
-""")
-```
-
-### Find annotations and segmentations
-
-**Note:** Not all image-derived objects belong to analysis result collections. Some annotations are deposited alongside original images. Use DICOM Modality or SOPClassUID to find all derived objects regardless of collection type.
-
-```python
-# Find ALL segmentations and structure sets by DICOM Modality
-# SEG = DICOM Segmentation, RTSTRUCT = Radiotherapy Structure Set
-client.sql_query("""
-    SELECT collection_id, Modality, COUNT(*) as series_count
-    FROM index
-    WHERE Modality IN ('SEG', 'RTSTRUCT')
-    GROUP BY collection_id, Modality
-    ORDER BY series_count DESC
-""")
-
-# Find segmentations for a specific collection (includes non-analysis-result items)
-client.sql_query("""
-    SELECT SeriesInstanceUID, SeriesDescription, analysis_result_id
-    FROM index
-    WHERE collection_id = 'tcga_luad' AND Modality = 'SEG'
-""")
-
-# List analysis result collections (curated derived datasets)
-client.fetch_index("analysis_results_index")
-client.sql_query("""
-    SELECT analysis_result_id, analysis_result_title, Collections, Modalities
-    FROM analysis_results_index
-""")
-
-# Find analysis results for a specific source collection
-client.sql_query("""
-    SELECT analysis_result_id, analysis_result_title
-    FROM analysis_results_index
-    WHERE Collections LIKE '%tcga_luad%'
-""")
-
-# Use seg_index for detailed DICOM Segmentation metadata
-client.fetch_index("seg_index")
-
-# Get segmentation statistics by algorithm
-client.sql_query("""
-    SELECT AlgorithmName, AlgorithmType, COUNT(*) as seg_count
-    FROM seg_index
-    WHERE AlgorithmName IS NOT NULL
-    GROUP BY AlgorithmName, AlgorithmType
-    ORDER BY seg_count DESC
+    SELECT * FROM index
+    WHERE license_short_name LIKE 'CC BY%' AND license_short_name NOT LIKE '%NC%'
     LIMIT 10
 """)
-
-# Find segmentations for specific source images (e.g., chest CT)
-client.sql_query("""
-    SELECT
-        s.SeriesInstanceUID as seg_series,
-        s.AlgorithmName,
-        s.total_segments,
-        s.segmented_SeriesInstanceUID as source_series
-    FROM seg_index s
-    JOIN index src ON s.segmented_SeriesInstanceUID = src.SeriesInstanceUID
-    WHERE src.Modality = 'CT' AND src.BodyPartExamined = 'CHEST'
-    LIMIT 10
-""")
-
-# Find TotalSegmentator results with source image context
-client.sql_query("""
-    SELECT
-        seg_info.collection_id,
-        COUNT(DISTINCT s.SeriesInstanceUID) as seg_count,
-        SUM(s.total_segments) as total_segments
-    FROM seg_index s
-    JOIN index seg_info ON s.SeriesInstanceUID = seg_info.SeriesInstanceUID
-    WHERE s.AlgorithmName LIKE '%TotalSegmentator%'
-    GROUP BY seg_info.collection_id
-    ORDER BY seg_count DESC
-""")
 ```
 
-### Query slide microscopy data
-```python
-# sm_index has detailed metadata; join with index for collection_id
-client.fetch_index("sm_index")
-client.sql_query("""
-    SELECT i.collection_id, COUNT(*) as slides,
-           MIN(s.min_PixelSpacing_2sf) as min_resolution
-    FROM sm_index s
-    JOIN index i ON s.SeriesInstanceUID = i.SeriesInstanceUID
-    GROUP BY i.collection_id
-    ORDER BY slides DESC
-""")
-```
-
-### Estimate download size
-```python
-# Size for specific criteria
-client.sql_query("""
-    SELECT SUM(series_size_MB) as total_mb, COUNT(*) as series_count
-    FROM index
-    WHERE collection_id = 'nlst' AND Modality = 'CT'
-""")
-```
-
-### Link to clinical data
-```python
-client.fetch_index("clinical_index")
-
-# Find collections with clinical data and their tables
-client.sql_query("""
-    SELECT collection_id, table_name, COUNT(DISTINCT column_label) as columns
-    FROM clinical_index
-    GROUP BY collection_id, table_name
-    ORDER BY collection_id
-""")
-```
+See `references/sql_patterns.md` for complete query patterns including:
+- Annotations and segmentation queries
+- Slide microscopy queries
+- Clinical data linkage
+- Multi-modality studies
+- Collection statistics
 
 ## Related Skills
 
