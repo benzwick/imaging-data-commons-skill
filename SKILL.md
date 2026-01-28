@@ -544,67 +544,17 @@ See `references/bigquery_guide.md` for setup, table schemas, query patterns, and
 
 ### 9. Integration with Analysis Pipelines
 
-Integrate IDC data into imaging analysis workflows:
+After downloading DICOM data, integrate with common analysis tools:
 
-**Read downloaded DICOM files:**
-```python
-import pydicom
-import os
+| Tool | Use Case |
+|------|----------|
+| pydicom | Read DICOM files, extract metadata and pixel arrays |
+| SimpleITK | Build 3D volumes, convert to NIfTI, apply filters |
+| MONAI | Deep learning preprocessing and training |
+| radiomics | Feature extraction from images and segmentations |
+| OpenSlide/histolab | Pathology whole slide image processing |
 
-# Read DICOM files from downloaded series
-series_dir = "./data/rider/rider_pilot/RIDER-1007893286/CT_1.3.6.1..."
-
-dicom_files = [os.path.join(series_dir, f) for f in os.listdir(series_dir)
-               if f.endswith('.dcm')]
-
-# Load first image
-ds = pydicom.dcmread(dicom_files[0])
-print(f"Patient ID: {ds.PatientID}")
-print(f"Modality: {ds.Modality}")
-print(f"Image shape: {ds.pixel_array.shape}")
-```
-
-**Build 3D volume from CT series:**
-```python
-import pydicom
-import numpy as np
-from pathlib import Path
-
-def load_ct_series(series_path):
-    """Load CT series as 3D numpy array"""
-    files = sorted(Path(series_path).glob('*.dcm'))
-    slices = [pydicom.dcmread(str(f)) for f in files]
-
-    # Sort by slice location
-    slices.sort(key=lambda x: float(x.ImagePositionPatient[2]))
-
-    # Stack into 3D array
-    volume = np.stack([s.pixel_array for s in slices])
-
-    return volume, slices[0]  # Return volume and first slice for metadata
-
-volume, metadata = load_ct_series("./data/lung_ct/series_dir")
-print(f"Volume shape: {volume.shape}")  # (z, y, x)
-```
-
-**Integrate with SimpleITK:**
-```python
-import SimpleITK as sitk
-from pathlib import Path
-
-# Read DICOM series
-series_path = "./data/ct_series"
-reader = sitk.ImageSeriesReader()
-dicom_names = reader.GetGDCMSeriesFileNames(series_path)
-reader.SetFileNames(dicom_names)
-image = reader.Execute()
-
-# Apply processing
-smoothed = sitk.CurvatureFlow(image1=image, timeStep=0.125, numberOfIterations=5)
-
-# Save as NIfTI
-sitk.WriteImage(smoothed, "processed_volume.nii.gz")
-```
+See `references/analysis_integration.md` for complete code examples.
 
 ## Common Use Cases
 
