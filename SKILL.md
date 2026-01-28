@@ -736,6 +736,24 @@ python scripts/validate_download.py --dir ./data
 
 # Validate against manifest with geometry checking
 python scripts/validate_download.py --dir ./data --manifest manifest.csv --check-geometry --output report.json
+
+# Run tests
+pytest tests/ -v
+```
+
+### Tests
+
+The `tests/` directory contains pytest tests for validating skill functionality:
+
+| Test File | Description |
+|-----------|-------------|
+| `tests/test_queries.py` | IDC client, SQL queries, index schema, viewer URLs |
+| `tests/test_validation.py` | Validation scripts, progress tracking, disk space checks |
+
+Run tests with:
+```bash
+pip install pytest
+pytest tests/ -v
 ```
 
 ### External Links
