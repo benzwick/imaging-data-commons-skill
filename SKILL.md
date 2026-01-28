@@ -710,6 +710,27 @@ columns = [(c['name'], c['type'], c.get('description', '')) for c in schema['col
 
 **External:** [indices_reference](https://idc-index.readthedocs.io/en/latest/indices_reference.html) - Official idc-index documentation
 
+### Scripts
+
+| Script | Description |
+|--------|-------------|
+| `scripts/batch_download.py` | Batch download with progress tracking, resume capability, disk space checking |
+
+Usage:
+```bash
+# Download from SQL query
+python scripts/batch_download.py --query "SELECT SeriesInstanceUID FROM index WHERE collection_id='nlst' LIMIT 100" --output ./data
+
+# Download from manifest file
+python scripts/batch_download.py --manifest series.csv --output ./data
+
+# Download entire collection
+python scripts/batch_download.py --collection rider_pilot --output ./data
+
+# Dry run to see what would be downloaded
+python scripts/batch_download.py --collection rider_pilot --output ./data --dry-run
+```
+
 ### External Links
 
 - **IDC Portal**: https://portal.imaging.datacommons.cancer.gov/explore/
