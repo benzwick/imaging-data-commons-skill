@@ -617,6 +617,7 @@ See `references/use_cases.md` for complete code examples for each use case.
   - Use pydicom to validate: `pydicom.dcmread(file, force=True)`
   - Try different DICOM viewer (3D Slicer, Horos, RadiAnt, QuPath)
   - Re-download the series
+  - See `references/data_validation.md` for comprehensive validation scripts
 
 ## Common SQL Query Patterns
 
@@ -693,6 +694,7 @@ columns = [(c['name'], c['type'], c.get('description', '')) for c in schema['col
 | `references/use_cases.md` | Detailed code examples for common workflows |
 | `references/analysis_integration.md` | Integration with pydicom, SimpleITK, MONAI, etc. |
 | `references/memory_management.md` | Large dataset handling, batch downloads, disk management |
+| `references/data_validation.md` | DICOM integrity checking, series completeness verification |
 | `references/bigquery_guide.md` | Advanced BigQuery usage for complex metadata queries |
 | `references/dicomweb_guide.md` | DICOMweb endpoint URLs and API integration |
 
