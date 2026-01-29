@@ -150,16 +150,22 @@ GROUP BY collection_id, license_short_name
 
 ### Find Segmentations with Source Images
 
+**Note:** BigQuery table schemas may change between IDC versions. Check available columns with:
+```sql
+SELECT column_name FROM `bigquery-public-data.idc_current.INFORMATION_SCHEMA.COLUMNS`
+WHERE table_name = 'segmentations'
+```
+
 ```sql
 SELECT
   src.collection_id,
   seg.SeriesInstanceUID as seg_series,
-  seg.SegmentedPropertyType,
+  seg.SegmentNumber,
   src.SeriesInstanceUID as source_series,
   src.Modality as source_modality
 FROM `bigquery-public-data.idc_current.segmentations` seg
 JOIN `bigquery-public-data.idc_current.dicom_all` src
-  ON seg.segmented_SeriesInstanceUID = src.SeriesInstanceUID
+  ON seg.ReferencedSeriesInstanceUID = src.SeriesInstanceUID
 WHERE src.collection_id = 'qin_prostate_repeatability'
 LIMIT 10
 ```
