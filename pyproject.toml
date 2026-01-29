@@ -1,0 +1,49 @@
+[project]
+name = "imaging-data-commons-skill"
+version = "0.1.0"
+description = "Claude Code skill for querying and downloading public cancer imaging data from NCI Imaging Data Commons"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Andrey Fedorov"},
+    {name = "Ben Zwick"},
+]
+keywords = ["claude-code", "skill", "medical-imaging", "dicom", "cancer", "radiology", "pathology", "idc"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+
+dependencies = [
+    "idc-index>=0.11.7",
+    "pandas>=1.5.0",
+    "pydicom>=2.3.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/benzwick/imaging-data-commons-skill"
+"IDC Portal" = "https://portal.imaging.datacommons.cancer.gov/"
+"IDC Documentation" = "https://learn.canceridc.dev/"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v"
