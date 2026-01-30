@@ -59,6 +59,10 @@ uv run pytest
 └── tests/                # Pytest test suite
 ```
 
+## Acknowledgments
+
+This skill was originally created by [Andrey Fedorov](https://github.com/fedorov) as part of the [K-Dense-AI/claude-scientific-skills](https://github.com/K-Dense-AI/claude-scientific-skills) collection.
+
 ## License
 
 MIT License. IDC data has individual licensing (CC-BY, CC-NC) - see SKILL.md for details.
