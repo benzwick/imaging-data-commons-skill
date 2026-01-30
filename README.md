@@ -12,11 +12,15 @@ A [Claude Code skill](https://docs.anthropic.com/en/docs/claude-code/skills) for
 Add this skill to your Claude Code project:
 
 ```bash
-# Clone to your .claude/skills directory
+# Option 1: Add as git submodule (recommended for version control)
+cd your-project
+git submodule add git@github.com:benzwick/imaging-data-commons-skill.git .claude/skills/imaging-data-commons
+
+# Option 2: Clone directly
 cd your-project/.claude/skills
 git clone git@github.com:benzwick/imaging-data-commons-skill.git imaging-data-commons
 
-# Or symlink from another location
+# Option 3: Symlink from another location
 ln -s /path/to/imaging-data-commons-skill .claude/skills/imaging-data-commons
 ```
 
