@@ -1,5 +1,10 @@
 # Imaging Data Commons Skill
 
+[![Tests](https://github.com/benzwick/imaging-data-commons-skill/actions/workflows/test.yml/badge.svg)](https://github.com/benzwick/imaging-data-commons-skill/actions/workflows/test.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+
 A [Claude Code skill](https://docs.anthropic.com/en/docs/claude-code/skills) for querying and downloading public cancer imaging data from the [NCI Imaging Data Commons](https://portal.imaging.datacommons.cancer.gov/).
 
 ## Installation
