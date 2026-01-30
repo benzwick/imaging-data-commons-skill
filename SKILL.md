@@ -192,6 +192,8 @@ analysis_info = client.sql_query("""
 
 Query the IDC mini-index using SQL to find specific datasets.
 
+**Important:** Use single quotes for SQL string literals (`'MR'`), not double quotes. Double quotes in SQL are for column/table identifiers and will cause errors like `Referenced column "MR" not found`.
+
 **First, explore available values for filter columns:**
 ```python
 from idc_index import IDCClient
