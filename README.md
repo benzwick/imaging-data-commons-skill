@@ -54,6 +54,19 @@ uv sync --extra test
 uv run pytest
 ```
 
+## Development
+
+### Setting Up Reference for Comparison
+
+To compare this skill with the official ImagingDataCommons/idc-claude-skill, clone it into the `_reference` directory (gitignored):
+
+```bash
+mkdir -p _reference
+git clone https://github.com/ImagingDataCommons/idc-claude-skill.git _reference/idc-claude-skill
+```
+
+Then use the `/sync-official` skill to generate comparison reports and apply improvements.
+
 ## Structure
 
 ```
