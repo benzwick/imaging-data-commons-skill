@@ -36,7 +36,15 @@ SKILL.md              # Main skill documentation (Claude reads this when skill i
 references/           # Extended documentation for complex topics (BigQuery, DICOMweb, etc.)
 scripts/              # Standalone CLI utilities for batch operations
 tests/                # pytest suite validating skill documentation accuracy
+_reference/           # Reference implementations (gitignored, for local comparison)
 ```
+
+## Reference Implementation
+
+The `_reference/idc-claude-skill/` directory contains the official ImagingDataCommons/idc-claude-skill for comparison. Consult it when:
+- Adding new features to see how the official skill handles them
+- Checking for updates or new patterns in IDC skill design
+- Resolving questions about best practices
 
 ### Key Files
 
