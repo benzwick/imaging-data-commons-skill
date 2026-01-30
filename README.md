@@ -71,6 +71,14 @@ This skill was originally created by [Andrey Fedorov](https://github.com/fedorov
 
 MIT License. IDC data has individual licensing (CC-BY, CC-NC) - see SKILL.md for details.
 
+## Related IDC Skills
+
+Other Claude Code skills for Imaging Data Commons:
+
+- [ImagingDataCommons/idc-claude-skill](https://github.com/ImagingDataCommons/idc-claude-skill) - Official IDC skill by Andrey Fedorov. Search datasets, review licensing, generate citations, access DICOM viewers.
+- [mhalle/idc-skill](https://github.com/mhalle/idc-skill) - Query 160+ collections, generate download scripts, analyze DICOM metadata, supports restricted network environments.
+- [K-Dense-AI/claude-scientific-skills](https://github.com/K-Dense-AI/claude-scientific-skills) - Collection of 140+ scientific skills including the original IDC skill. Covers bioinformatics, cheminformatics, proteomics, and more.
+
 ## Resources
 
 - [Claude Code Skills Documentation](https://docs.anthropic.com/en/docs/claude-code/skills)
